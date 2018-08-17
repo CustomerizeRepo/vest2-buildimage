@@ -1,0 +1,12 @@
+[Unit]
+Description=my GNMI daemon
+#Requires=updategraph.service
+#After=updategraph.service
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/gnmi_server [::]:5001
+
+
+[Install]
+WantedBy=multi-user.target

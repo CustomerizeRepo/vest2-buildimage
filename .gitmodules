@@ -63,3 +63,6 @@
 [submodule "platform/mellanox/hw-management/hw-mgmt"]
 	path = platform/mellanox/hw-management/hw-mgmt
 	url = https://github.com/Mellanox/hw-mgmt/
+[submodule "src/gnmi-svr/my_gnmi_server"]
+	path = src/gnmi-svr/my_gnmi_server
+	url = https://github.com/SquidRo/my_gnmi_server.git

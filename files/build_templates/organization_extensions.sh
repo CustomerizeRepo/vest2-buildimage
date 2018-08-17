@@ -19,7 +19,7 @@
 ## Initialize the arguments to default values.
 ## The values get updated to user provided value, if supplied
 FILESYSTEM_ROOT=./fsroot
-HOSTNAME=sonic
+HOSTNAME=vesta
 
 # read the options
 TEMP=`getopt -o f:h: --long fsroot:,hostname: -- "$@"`
@@ -43,10 +43,10 @@ while true ; do
     esac
 done
 
-echo "Executing SONIC Organization Extensions"
+echo "Executing VESTA Extensions"
 
 ## Place your Organization specific code / scipts here ... 
 
 
-echo "SONIC Organization Extensions - Done"
+echo "VESTA Extensions - Done"
 

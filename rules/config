@@ -71,3 +71,6 @@ ENABLE_ORGANIZATION_EXTENSIONS = y
 #   build:    build kernel from source
 #   download: download pre-built kernel from Azure storage.
 DEFAULT_KERNEL_PROCURE_METHOD = build
+
+# ENABLE_ACCTON_GNMI_SERVICE - for accton gnmi service support
+ENABLE_ACCTON_GNMI_SERVICE = y

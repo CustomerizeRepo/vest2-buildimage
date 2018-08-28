@@ -122,16 +122,18 @@ sudo LANG=C chroot $FILESYSTEM_ROOT pam-auth-update --remove tacplus
 sudo sed -i -e '/^passwd/s/ tacplus//' $FILESYSTEM_ROOT/etc/nsswitch.conf
 
 # squid for gnmi_server
-sudo https_proxy=$https_proxy LANG=C chroot $FILESYSTEM_ROOT pip install protobuf
-sudo https_proxy=$https_proxy LANG=C chroot $FILESYSTEM_ROOT pip install grpcio
+{% if enable_accton_gnmi_service == "y" %}
+    sudo https_proxy=$https_proxy LANG=C chroot $FILESYSTEM_ROOT pip install protobuf
+    sudo https_proxy=$https_proxy LANG=C chroot $FILESYSTEM_ROOT pip install grpcio
 
-GNMISVR_PY2_WHEEL_NAME=$(basename {{gnmisvr_py2_wheel_path}})
-sudo cp {{gnmisvr_py2_wheel_path}} $FILESYSTEM_ROOT/$GNMISVR_PY2_WHEEL_NAME
-sudo https_proxy=$https_proxy LANG=C chroot $FILESYSTEM_ROOT pip install $GNMISVR_PY2_WHEEL_NAME
-sudo rm -rf $FILESYSTEM_ROOT/$GNMISVR_PY2_WHEEL_NAME
+    GNMISVR_PY2_WHEEL_NAME=$(basename {{gnmisvr_py2_wheel_path}})
+    sudo cp {{gnmisvr_py2_wheel_path}} $FILESYSTEM_ROOT/$GNMISVR_PY2_WHEEL_NAME
+    sudo https_proxy=$https_proxy LANG=C chroot $FILESYSTEM_ROOT pip install $GNMISVR_PY2_WHEEL_NAME
+    sudo rm -rf $FILESYSTEM_ROOT/$GNMISVR_PY2_WHEEL_NAME
 
-sudo cp $IMAGE_CONFIGS/gnmi_svr/gnmi_svr.service $FILESYSTEM_ROOT/etc/systemd/system/
-sudo LANG=C chroot $FILESYSTEM_ROOT systemctl enable gnmi_svr.service
+    sudo cp $IMAGE_CONFIGS/gnmi_svr/gnmi_svr.service $FILESYSTEM_ROOT/etc/systemd/system/
+    sudo LANG=C chroot $FILESYSTEM_ROOT systemctl enable gnmi_svr.service
+{% endif %}
 
 # Copy crontabs
 sudo cp -f $IMAGE_CONFIGS/cron.d/* $FILESYSTEM_ROOT/etc/cron.d/

@@ -132,6 +132,7 @@ $(info "ENABLE_SYSTEM_TELEMETRY"         : "$(ENABLE_SYSTEM_TELEMETRY)")
 $(info "SONIC_DEBUGGING_ON"              : "$(SONIC_DEBUGGING_ON)")
 $(info "SONIC_PROFILING_ON"              : "$(SONIC_PROFILING_ON)")
 $(info "KERNEL_PROCURE_METHOD"           : "$(KERNEL_PROCURE_METHOD)")
+$(info "ENABLE_ACCTON_GNMI_SERVICE"      : "$(ENABLE_ACCTON_GNMI_SERVICE)")
 $(info )
 
 ###############################################################################
@@ -485,6 +486,7 @@ $(addprefix $(TARGET_PATH)/, $(SONIC_INSTALLERS)) : $(TARGET_PATH)/% : \
 	export swsssdk_py2_wheel_path="$(addprefix $(PYTHON_WHEELS_PATH)/,$(SWSSSDK_PY2))"
 	export platform_common_py2_wheel_path="$(addprefix $(PYTHON_WHEELS_PATH)/,$(SONIC_PLATFORM_COMMON_PY2))"
 	export gnmisvr_py2_wheel_path="$(addprefix $(PYTHON_WHEELS_PATH)/,$(GNMISVR_PY2))"
+	export enable_accton_gnmi_service="$(ENABLE_ACCTON_GNMI_SERVICE)"
 
 	$(foreach docker, $($*_DOCKERS),\
 		export docker_image="$(docker)"

@@ -73,7 +73,7 @@ if [[ -d ${ROOTFS_SHADOW} ]]; then #squid
     
 else #squid
     ### create shadow rootfs
-
+echo "Create shadow roofs........................."
 mkdir -p $FILESYSTEM_ROOT
 mkdir -p $FILESYSTEM_ROOT/$PLATFORM_DIR
 mkdir -p $FILESYSTEM_ROOT/$PLATFORM_DIR/x86_64-grub

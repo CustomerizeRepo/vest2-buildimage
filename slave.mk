@@ -462,6 +462,9 @@ $(addprefix $(TARGET_PATH)/, $(SONIC_INSTALLERS)) : $(TARGET_PATH)/% : \
                 $(BASH) \
                 $(LIBWRAP) \
                 $(LIBPAM_TACPLUS) \
+		$(COLLECTD_DEB) \
+		$(COLLECTD_CORE_DEB) \
+		$(LIBGCRYPT11_DEB) \
                 $(LIBNSS_TACPLUS)) \
         $$(addprefix $(TARGET_PATH)/,$$($$*_DOCKERS)) \
         $$(addprefix $(PYTHON_WHEELS_PATH)/,$(SONIC_CONFIG_ENGINE)) \

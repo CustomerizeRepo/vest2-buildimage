@@ -131,6 +131,7 @@ sudo LANG=C DEBIAN_FRONTEND=noninteractive chroot $FILESYSTEM_ROOT apt-get -y in
     librrd4
 sudo dpkg --root=$FILESYSTEM_ROOT -i target/debs/collectd-core_5.7.0-3~bpo7+2_amd64.deb
 sudo dpkg --root=$FILESYSTEM_ROOT -i target/debs/collectd_5.7.0-3~bpo7+2_amd64.deb
+sudo dpkg --root=$FILESYSTEM_ROOT -i target/debs/libgcrypt11_1.5.0-5+deb7u6_amd64.deb
 sudo LANG=C DEBIAN_FRONTEND=noninteractive chroot $FILESYSTEM_ROOT apt-get -yq install -f
 sudo LANG=C chroot $FILESYSTEM_ROOT systemctl enable collectd.service
 sudo LANG=C chroot $FILESYSTEM_ROOT rm -f /usr/sbin/policy-rc.d

@@ -122,19 +122,21 @@ sudo LANG=C chroot $FILESYSTEM_ROOT pam-auth-update --remove tacplus
 sudo sed -i -e '/^passwd/s/ tacplus//' $FILESYSTEM_ROOT/etc/nsswitch.conf
 
 # Install dependencies for collectd
-# skip collectd post-install
-sudo LANG=C chroot $FILESYSTEM_ROOT bash -c "echo exit 101 > /usr/sbin/policy-rc.d"
-sudo LANG=C chroot $FILESYSTEM_ROOT chmod +x /usr/sbin/policy-rc.d
+{% if enable_collectd_service == "y" %}
+    # skip collectd post-install
+    sudo LANG=C chroot $FILESYSTEM_ROOT bash -c "echo exit 101 > /usr/sbin/policy-rc.d"
+    sudo LANG=C chroot $FILESYSTEM_ROOT chmod +x /usr/sbin/policy-rc.d
 
-sudo LANG=C chroot $FILESYSTEM_ROOT ln -sf /lib/x86_64-linux-gnu/libudev.so.1 /lib/x86_64-linux-gnu/libudev.so.0
-sudo LANG=C DEBIAN_FRONTEND=noninteractive chroot $FILESYSTEM_ROOT apt-get -y install \
+    sudo LANG=C chroot $FILESYSTEM_ROOT ln -sf /lib/x86_64-linux-gnu/libudev.so.1 /lib/x86_64-linux-gnu/libudev.so.0
+    sudo LANG=C DEBIAN_FRONTEND=noninteractive chroot $FILESYSTEM_ROOT apt-get -y install \
     librrd4
-sudo dpkg --root=$FILESYSTEM_ROOT -i target/debs/collectd-core_5.7.0-3~bpo7+2_amd64.deb
-sudo dpkg --root=$FILESYSTEM_ROOT -i target/debs/collectd_5.7.0-3~bpo7+2_amd64.deb
-sudo dpkg --root=$FILESYSTEM_ROOT -i target/debs/libgcrypt11_1.5.0-5+deb7u6_amd64.deb
-sudo LANG=C DEBIAN_FRONTEND=noninteractive chroot $FILESYSTEM_ROOT apt-get -yq install -f
-sudo LANG=C chroot $FILESYSTEM_ROOT systemctl enable collectd.service
-sudo LANG=C chroot $FILESYSTEM_ROOT rm -f /usr/sbin/policy-rc.d
+    sudo dpkg --root=$FILESYSTEM_ROOT -i target/debs/collectd-core_5.7.0-3~bpo7+2_amd64.deb
+    sudo dpkg --root=$FILESYSTEM_ROOT -i target/debs/collectd_5.7.0-3~bpo7+2_amd64.deb
+    sudo dpkg --root=$FILESYSTEM_ROOT -i target/debs/libgcrypt11_1.5.0-5+deb7u6_amd64.deb
+    sudo LANG=C DEBIAN_FRONTEND=noninteractive chroot $FILESYSTEM_ROOT apt-get -yq install -f
+    sudo LANG=C chroot $FILESYSTEM_ROOT systemctl enable collectd.service
+    sudo LANG=C chroot $FILESYSTEM_ROOT rm -f /usr/sbin/policy-rc.d
+{% endif %}
 
 # squid for gnmi_server
 {% if enable_accton_gnmi_service == "y" %}

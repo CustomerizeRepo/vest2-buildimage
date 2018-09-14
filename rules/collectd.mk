@@ -10,4 +10,7 @@ $(COLLECTD_DEB)_URL = http://ftp.tw.debian.org/debian/pool/main/c/collectd/$(COL
 $(COLLECTD_CORE_DEB)_URL = http://ftp.tw.debian.org/debian/pool/main/c/collectd/$(COLLECTD_CORE_DEB)
 $(LIBGCRYPT11_DEB)_URL = http://security.debian.org/debian-security/pool/updates/main/libg/libgcrypt11/$(LIBGCRYPT11_DEB)
 
-SONIC_ONLINE_DEBS += $(COLLECTD_DEB) $(COLLECTD_CORE_DEB) $(LIBGCRYPT11_DEB)
+ifeq ($(ENABLE_COLLECTD_SERVICE), y)
+	SONIC_ONLINE_DEBS += $(COLLECTD_DEB) $(COLLECTD_CORE_DEB) $(LIBGCRYPT11_DEB)
+endif
+

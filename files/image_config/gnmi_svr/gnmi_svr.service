@@ -1,12 +1,13 @@
 [Unit]
-Description=my GNMI daemon
-#Requires=updategraph.service
-#After=updategraph.service
+Description=NOCSYS GNMI daemon
+Requires=updategraph.service swss.service
+After=updategraph.service swss.service
 
 [Service]
-Type=simple
+Type=idle
 ExecStart=/usr/local/bin/gnmi_server [::]:5001
-
+Restart=always
+RestartSec=30
 
 [Install]
 WantedBy=multi-user.target

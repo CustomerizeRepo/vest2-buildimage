@@ -43,10 +43,10 @@ while true ; do
     esac
 done
 
-echo "Executing VESTA Extensions"
+echo "Executing SONiC Extensions"
 
 ## Place your Organization specific code / scipts here ... 
 
 
-echo "VESTA Extensions - Done"
+echo "SONiC Extensions - Done"
 

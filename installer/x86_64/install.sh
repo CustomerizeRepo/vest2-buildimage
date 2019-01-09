@@ -25,14 +25,14 @@ set -e
 cd $(dirname $0)
 
 if [ -d "/etc/sonic" ]; then
-    echo "Installing VESTA in VESTA"
+    echo "Installing SONiC in SONiC"
     install_env="sonic"
 elif grep -Fxqs "DISTRIB_ID=onie" /etc/lsb-release > /dev/null
 then
-    echo "Installing VESTA in ONIE"
+    echo "Installing SONiC in ONIE"
     install_env="onie"
 else
-    echo "Installing VESTA in BUILD"
+    echo "Installing SONiC in BUILD"
     install_env="build"
 fi
 
@@ -109,8 +109,8 @@ demo_type="%%DEMO_TYPE%%"
 image_version="%%IMAGE_VERSION%%"
 timestamp="$(date -u +%Y%m%d)"
 
-demo_volume_label="VESTA-${demo_type}"
-demo_volume_revision_label="VESTA-${demo_type}-${image_version}"
+demo_volume_label="SONiC-${demo_type}"
+demo_volume_revision_label="SONiC-${demo_type}-${image_version}"
 
 # auto-detect whether BIOS or UEFI
 if [ -d "/sys/firmware/efi/efivars" ] ; then
@@ -419,13 +419,13 @@ elif [ "$install_env" = "sonic" ]; then
     eval running_sonic_revision=$(cat /etc/sonic/sonic_version.yml | grep build_version | cut -f2 -d" ")
     # Prevent installing existing SONiC if it is running
     if [ "$image_dir" = "image-$running_sonic_revision" ]; then
-        echo "Not installing VESTA version $running_sonic_revision, as current running VESTA has the same version"
+        echo "Not installing SONiC version $running_sonic_revision, as current running SONiC has the same version"
         exit 0
     fi
     # Remove extra SONiC images if any
     for f in $demo_mnt/image-* ; do
         if [ -d $f ] && [ "$f" != "$demo_mnt/image-$running_sonic_revision" ] && [ "$f" != "$demo_mnt/$image_dir" ]; then
-            echo "Removing old VESTA installation $f"
+            echo "Removing old SONiC installation $f"
             rm -rf $f
         fi
     done
@@ -440,7 +440,7 @@ else
     mount -t auto -o loop $demo_dev $demo_mnt
 fi
 
-echo "Installing VESTA to $demo_mnt/$image_dir"
+echo "Installing SONiC to $demo_mnt/$image_dir"
 
 # Create target directory or clean it up if exists
 if [ -d $demo_mnt/$image_dir ]; then
@@ -448,7 +448,7 @@ if [ -d $demo_mnt/$image_dir ]; then
     rm -rf $demo_mnt/$image_dir/*
 else
     mkdir $demo_mnt/$image_dir || {
-        echo "Error: Unable to create VESTA directory"
+        echo "Error: Unable to create SONiC directory"
         exit 1
     }
 fi
@@ -599,4 +599,4 @@ fi
 
 cd /
 
-echo "Installed VESTA base image $demo_volume_label successfully"
+echo "Installed SONiC base image $demo_volume_label successfully"
